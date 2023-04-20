@@ -1,4 +1,5 @@
 # 合约协议学习
+## 实现erc20的文章 https://learnblockchain.cn/article/3672
 # Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
