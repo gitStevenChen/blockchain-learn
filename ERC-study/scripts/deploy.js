@@ -7,26 +7,26 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // const CQPToken = await hre.ethers.getContractFactory("CQPToken");
+  // const cqpToken = await CQPToken.deploy(hre.ethers.utils.parseEther("1000"), hre.ethers.utils.parseEther("10000"));
+  // await cqpToken.deployed();
+  // console.log("CQPToken deployed to: ", cqpToken.address);
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
-
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+  const PriceFeedTracker = await hre.ethers.getContractFactory("PriceFeedTracker");
+  console.log("Deploying PriceFeedTracker to ", network.name);
+  const [account1] = await hre.ethers.getSigners();
+  const pricefeedTracker = await hre.upgrades.deployProxy(
+    PriceFeedTracker,[account1.address],{ initializer: "initialize" }
   );
+  await pricefeedTracker.deployed();
+  console.log("PriceFeedTracker deployed to:", pricefeedTracker.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
