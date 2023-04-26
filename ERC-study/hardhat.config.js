@@ -18,6 +18,9 @@ const PRIVATE_KEY = [process.env.PRIVATE_KEY];
 //sepolia
 const SEPOLIA_URL = process.env.SEPOLIA_URL;
 const SEPOLIA_API_KEY = process.env.SEPOLIA_API_KEY;
+//goerli
+const GOERLI_URL = process.env.GOERLI_URL;
+const GOERLI_API_KEY = process.env.GOERLI_API_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -33,7 +36,7 @@ module.exports = {
   },
   networks: {
     goerli: {
-      url: 'https://eth-goerli.g.alchemy.com/v2/7j7b4yOicoidzKfLjUuT2lCHKCsad4g1',
+      url: GOERLI_URL,
       accounts: PRIVATE_KEY,
     },
     sepolia: {
@@ -43,7 +46,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      goerli: "7j7b4yOicoidzKfLjUuT2lCHKCsad4g1",
+      goerli: GOERLI_API_KEY,
       sepolia: SEPOLIA_API_KEY,
     },
   },
