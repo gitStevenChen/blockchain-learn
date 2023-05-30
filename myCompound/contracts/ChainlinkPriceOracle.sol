@@ -4,6 +4,7 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interface/PriceOracle.sol";
+import "./interface/CToken.sol";
 
 contract ChainlinkPriceOracle is Ownable, PriceOracle {
     mapping(address => AggregatorV3Interface) internal priceFeedMap;
@@ -26,10 +27,10 @@ contract ChainlinkPriceOracle is Ownable, PriceOracle {
         return price;
     }
 
-    function getUnderlyingPrice(address cToken) external view override returns (uint) {
-        AggregatorV3Interface priceFeed = priceFeedMap[cToken];
-        require(address(priceFeed) != address(0), "ChainlinkPriceOracle: price feed not found");
-        return uint(getLatestPrice(address(priceFeed)));
+    function getUnderlyingPrice(CToken cToken) external view override returns (uint) {
+        address token = address(cToken.underlying());
+        require(token != address(0), "token is not set");
+        return uint(getLatestPrice(token));
     }
 
 }
