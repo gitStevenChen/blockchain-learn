@@ -26,12 +26,12 @@ module.exports = {
     ]
   },
   networks: {
-    hardhat: {
-      forking: {
-        url: MAINNET_URL,
-        blockNumber: 18564155
-      }
-    },
+    // hardhat: {
+    //   forking: {
+    //     url: MAINNET_URL,
+    //     blockNumber: 18564155
+    //   }
+    // },
     goerli: {
       url: GOERLI_URL,
       accounts: PRIVATE_KEY,

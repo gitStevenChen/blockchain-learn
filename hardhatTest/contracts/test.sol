@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-contract proxy1 {
+import "hardhat/console.sol";
+
+contract TransparentProxy {
     // 合约参数
     address public admin;
     address public logic;
@@ -11,18 +13,16 @@ contract proxy1 {
         logic = _logic;
     }
 
-    fallback () external{
+    fallback() external payable {
         require(msg.sender != admin, "admin do not fallback");
-        bytes memory code = abi.encodeWithSelector(bytes4(msg.data), msg.data);
-        (bool ans, bytes memory anscode) = logic.delegatecall(code);
-        bytes memory result = abi.encode(anscode);
-
+        (bool success, bytes memory data) = logic.delegatecall(msg.data);
     }
 
     // 可升级逻辑
     function updateLogic (address newLogic) public {
         require(msg.sender == admin, "no admin no do updateLogic");
         logic = newLogic;
-        // returns(logic);
+        console.log("newLogic is %s ", logic);
+
     }
 }
