@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require('solidity-coverage');
 
 //私钥
 const PRIVATE_KEY = [process.env.PRIVATE_KEY];
