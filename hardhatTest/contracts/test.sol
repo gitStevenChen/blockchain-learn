@@ -23,6 +23,7 @@ contract TransparentProxy {
         require(msg.sender == admin, "no admin no do updateLogic");
         logic = newLogic;
         console.log("newLogic is %s ", logic);
-
     }
+
+    // 
 }
